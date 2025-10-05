@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: lab8
+  kafka:
+    bootstrap-servers: localhost:9092
+
+queue:
+  order:
+    topics:
+      urgent: urgent-orders
+      vip: vip-orders
+      standard: standard-orders
+  processing:
+    threads: 1
+    batch-size: 100
+    retry-attempts: 3
+  generator:
+    enabled: true
+    rate-per-sec: 500
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
