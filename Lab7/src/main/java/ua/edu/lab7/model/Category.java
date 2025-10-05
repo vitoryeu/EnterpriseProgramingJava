@@ -5,19 +5,32 @@ import jakarta.persistence.*;
 import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Category implements BaseEntity.Auditable {
+@EntityListeners(AuditingEntityListener.class)
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false, unique = true)
     private String name;
+
     private String description;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Category parentCategory;
+
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
     public Category() {
@@ -43,31 +56,31 @@ public class Category implements BaseEntity.Auditable {
         return description;
     }
 
-    public void setDescription(String d) {
-        this.description = d;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Category getParentCategory() {
         return parentCategory;
     }
 
-    public void setParentCategory(Category p) {
-        this.parentCategory = p;
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
     public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant t) {
-        this.createdAt = t;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Instant getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant t) {
-        this.updatedAt = t;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

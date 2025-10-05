@@ -11,13 +11,17 @@ public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonBackReference
     private Order order;
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Product product;
+
     @Column(nullable = false)
     private Integer quantity;
+
     @Column(nullable = false)
     private BigDecimal lineAmount;
 
@@ -36,31 +40,31 @@ public class OrderItem {
         return order;
     }
 
-    public void setOrder(Order o) {
-        this.order = o;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product p) {
-        this.product = p;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer q) {
-        this.quantity = q;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public BigDecimal getLineAmount() {
         return lineAmount;
     }
 
-    public void setLineAmount(BigDecimal a) {
-        this.lineAmount = a;
+    public void setLineAmount(BigDecimal lineAmount) {
+        this.lineAmount = lineAmount;
     }
 }
